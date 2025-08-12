@@ -1,0 +1,14 @@
+{
+  "name": "SquadPlay",
+  "short_name": "SquadPlay",
+  "description": "Planificador de partidas entre amigos. Filtra juegos por combinación exacta, marca terminados y consulta estadísticas.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#107C10",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SquadPlay · Planner de partidas</title>
   <meta name="description" content="Organiza partidas con tus amigos. Filtra juegos por combinación exacta de jugadores, marca terminados y consulta estadísticas.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#107C10">
+  <link rel="apple-touch-icon" href="icons/icon.svg">
   <style>
     :root {
       --xbox: #107C10;
@@ -332,7 +335,8 @@
       <div class="actions">
         <button class="btn" id="btnTheme" title="Cambiar tema">🌓 Tema</button>
         <button class="btn" id="btnDashboard">📊 Dashboard</button>
-        <button class="btn" id="btnReset">🔁 Reset demo</button>
+        <!--<button class="btn" id="btnReset">🔁 Reset demo</button>-->
+        <button class="btn" id="btnInstall" style="display:none">⬇️ Instalar</button>
         <button class="btn primary" id="btnExport">💾 Exportar JSON</button>
       </div>
     </div>
@@ -643,9 +647,9 @@
     // App init
     async function init() {
       // Theme
+    //   await registerSW();
       const savedTheme = localStorage.getItem('squadplay_theme');
       setTheme(savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
-
       const local = loadLocal();
       const remote = await fetchRemoteData();
       const chosen = chooseFresher(local, remote);
@@ -665,6 +669,43 @@
       document.body.setAttribute('data-theme', theme);
       localStorage.setItem('squadplay_theme', theme);
     }
+
+/*           // PWA: registro SW
+async function registerSW() {
+  if ('serviceWorker' in navigator) {
+    try {
+      const reg = await navigator.serviceWorker.register('./sw.js');
+      console.log('SW registrado:', reg.scope);
+    } catch (e) {
+      console.warn('Fallo al registrar SW', e);
+    }
+  }
+}
+
+// PWA: botón instalar
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const btn = document.getElementById('btnInstall');
+  if (btn) btn.style.display = 'inline-flex';
+});
+
+document.getElementById('btnInstall')?.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  try { await deferredPrompt.userChoice; } finally {
+    deferredPrompt = null;
+    document.getElementById('btnInstall').style.display = 'none';
+  }
+});
+
+window.addEventListener('appinstalled', () => {
+  document.getElementById('btnInstall').style.display = 'none';
+  console.log('PWA instalada');
+}); */
+
+
 
     // Rendering
     function renderAll() {
